@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>library</title>
+        <style>
+            .libform {
+                background-color: blanchedalmond;
+                padding: 20px;
+                width:auto;
+                height: 100vh;
+                color:rgb(100, 52, 7);
+                font-family: 'Courier New', Courier, monospace;
+            }
+            body {
+                background-color: aliceblue;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            button {
+                background-color:aqua;
+                color:rgb(222, 150, 150)
+            }
+        </style>
+    </head>
+    <body>
+        <div class ="libform">
+            <h1>DIVINE BOOK</h1>
+            <br>
+            <label>book name</label>
+            <input type="text" placeholder="what book title">
+            <p>home of books</p>
+            <button id="selectbtn" type="submit">submit</button>
+
+        </div>
+        <script>
+            const selectbtn = document.getElementById("selectbtn");
+            selectbtn.addEventListener("click", function() {
+                alert("u have selected a book");
+            });
+        </script>
+    </body>
+</html>
