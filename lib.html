@@ -6,8 +6,8 @@
             .libform {
                 background-color: blanchedalmond;
                 padding: 20px;
-                width:auto;
-                height: 100vh;
+                width: 500px;
+                height: auto;
                 color:rgb(100, 52, 7);
                 font-family: 'Courier New', Courier, monospace;
             }
@@ -25,19 +25,41 @@
     </head>
     <body>
         <div class ="libform">
-            <h1>DIVINE BOOK</h1>
+            <h1>DIVINE BOOKSHOP</h1>
             <br>
             <label>book name</label>
-            <input type="text" placeholder="what book title">
+            <input id="bookName" type="text" placeholder="what book title">
             <p>home of books</p>
-            <button id="selectbtn" type="submit">submit</button>
-
+            <p id="message">message</p>
+            <button id="selectbtn" type="button">submit</button>
         </div>
         <script>
             const selectbtn = document.getElementById("selectbtn");
+            const message=document.getElementById("message")
+            const bookName = document.getElementById("bookName");
             selectbtn.addEventListener("click", function() {
-                alert("u have selected a book");
-            });
+                fetch("http://localhost:3000/api/books", {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json"
+                      },
+                      body: JSON.stringify({
+                          title: bookName.value
+                      })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    message.textContent = data.message;
+                    bookName.value = ""
+                    setTimeout(() => {
+                        message.textContent = "";
+                    }, 2000);
+                })
+                .catch(error => {
+                    message.textContent = "Error: " + error.message;
+                    console.error("Fetch failed:", error);
+                });
+          });
         </script>
     </body>
 </html>
