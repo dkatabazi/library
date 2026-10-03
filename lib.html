@@ -8,8 +8,11 @@
                 padding: 20px;
                 width: 500px;
                 height: auto;
+                background-color: rgb(208, 164, 18);
                 color:rgb(100, 52, 7);
                 font-family: 'Courier New', Courier, monospace;
+                border-radius: 20px;
+                box-shadow: 10px 20px color lightblue;
             }
             body {
                 background-color: aliceblue;
@@ -32,8 +35,18 @@
             <p>home of books</p>
             <p id="message">message</p>
             <button id="selectbtn" type="button">submit</button>
+            <br>
+            <label>search book</label>
+            <input id="searchBook" type="text" placeholder="search book title">
+            <p>home of books</p>
+            <p id="message2" >loading...</p>
+            <button id="searchbtn" type="button">search</button>
         </div>
         <script>
+            const searchbtn = document.getElementById("searchbtn");
+            const searchBook = document.getElementById("searchBook");
+
+            const message2=document.getElementById("message2")
             const selectbtn = document.getElementById("selectbtn");
             const message=document.getElementById("message")
             const bookName = document.getElementById("bookName");
@@ -59,7 +72,23 @@
                     message.textContent = "Error: " + error.message;
                     console.error("Fetch failed:", error);
                 });
-          });
+            });
+            searchbtn.addEventListener("click", function() {
+
+                fetch("http://localhost:3000/api/books?title=" + searchBook.value)
+                    .then(res => res.json())
+                    .then(data => {
+                        message2.textContent = JSON.stringify(data.books);
+                        searchBook.value=""
+                        setTimeout(() => {
+                            message2.textContent = "";
+                        }, 2000);
+                    })
+                    .catch(error => {
+                        console.error("Search failed:", error);
+                    });
+
+            });
         </script>
     </body>
 </html>

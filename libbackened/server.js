@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const db = require("./database");
+const { searchBook } = require("./controllers/bookcontroller");
 const app = express();
 
 app.use(express.json());
@@ -27,6 +28,8 @@ app.post("/api/books", (req, res) => {
         }
     });
 });
+
+app.get("/api/books", searchBook);
 app.listen(3000, () => {
     console.log("Server running on port 3000");
 });
